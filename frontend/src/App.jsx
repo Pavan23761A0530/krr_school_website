@@ -22,6 +22,7 @@ import FacilitiesPage from "./components/pages/Facilities";
 import FeePage from "./components/pages/Fee";
 import Contact from "./components/pages/Contact";
 import Apply from "./components/pages/Apply";
+import TransportDashboard from "./components/Transport/TransportDashboard";
 
 function HomePage() {
   return (
@@ -57,6 +58,7 @@ export default function App() {
           <Route path="/fee-structure" element={<FeePage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/apply" element={<Apply />} />
+          <Route path="/transport" element={<TransportDashboard />} />
         </Routes>
 
         <Footer />

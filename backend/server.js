@@ -30,10 +30,12 @@ mongoose.connect(process.env.MONGO_URI)
 const feeRoutes = require('./routes/feeRoutes');
 const applicationRoutes = require('./routes/applicationRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
+const transportRoutes = require('./routes/transportRoutes');
 
 app.use('/api/fees', feeRoutes);
 app.use('/api/applications', applicationRoutes);
 app.use('/api/payments', paymentRoutes);
+app.use('/api/transport', transportRoutes);
 
 // Simple root route
 app.get('/', (req, res) => {

@@ -7,10 +7,7 @@ const navLinks = [
   { label: 'About Us', href: '/about' },
   { label: 'Facilities', href: '/facilities' },
   { label: 'Fee Structure', href: '/fee-structure' },
-  // { label: 'Hostel Facility', href: '/#hostel' },
-  // { label: 'Gallery', href: '/#gallery' },
-  // { label: 'Achievements', href: '/#achievements' },
-  // { label: 'Admissions', href: '/#admissions' },
+  { label: 'Transport', href: '/transport' },
   { label: 'Contact', href: '/contact' },
 ]
 
