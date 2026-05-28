@@ -238,19 +238,76 @@ const TransportDashboard = () => {
             )}
           </div>
 
-          {/* Expanded 6 Route Overview Cards */}
-           <div className="mt-20">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold">All Bus Routes</h2>
-            <div className="flex gap-2">
-              <span className="flex items-center gap-2 px-3 py-1 bg-green-500/10 text-green-400 border border-green-500/20 rounded-full text-xs">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                Live Tracking Active
-              </span>
+          {/* All Pickup Checkpoints Section */}
+          <div className="mt-20">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-3xl font-bold">All Pickup Checkpoints</h2>
+              <div className="flex gap-2">
+                <span className="flex items-center gap-2 px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full text-xs">
+                  Total {pickupPoints.length} Active Stops
+                </span>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {pickupPoints.map((point, idx) => (
+                <motion.div
+                  key={point._id}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.05 }}
+                  className="bg-white/5 backdrop-blur-md border border-white/10 p-5 rounded-2xl hover:bg-white/10 transition-all flex items-start gap-4"
+                >
+                  <div 
+                  className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
+                  style={{ backgroundColor: point.route?.color + '15' || '#3b82f615' }}
+                >
+                  <MapPin className="w-5 h-5" style={{ color: point.route?.color || '#3b82f6' }} />
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-bold text-white text-base group-hover:text-blue-400 transition-colors">{point.name}</h4>
+                  <p className="text-[10px] text-gray-500 font-bold tracking-wider mt-0.5 uppercase">
+                    Route: {point.route?.routeName}
+                  </p>
+                  <div className="flex items-center gap-4 mt-3">
+                    <div className="flex items-center gap-1.5 text-xs text-green-400 font-medium">
+                      <Clock className="w-3.5 h-3.5" />
+                      {point.route?.timing.pickup}
+                    </div>
+                    <div className="flex items-center gap-1.5 text-xs text-blue-400 font-medium">
+                      <Bus className="w-3.5 h-3.5" />
+                      {point.route?.bus.busNumber}
+                    </div>
+                  </div>
+                </div>
+                </motion.div>
+              ))}
             </div>
           </div>
-          <BusRouteCards routes={routes} pickupPoints={pickupPoints} />
-        </div>
+
+          {/* Bus Route Cards Section */}
+          <div className="mt-20">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-3xl font-bold">Available Bus Routes</h2>
+              <div className="flex gap-2">
+                <span className="flex items-center gap-2 px-3 py-1 bg-green-500/10 text-green-400 border border-green-500/20 rounded-full text-xs">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  Live Tracking Active
+                </span>
+              </div>
+            </div>
+            <BusRouteCards 
+              routes={routes} 
+              pickupPoints={pickupPoints} 
+              onBookRoute={(route) => {
+                setSelectedRouteId(route._id);
+                // Scroll to registration
+                const regElement = document.getElementById('transport-registration');
+                if (regElement) regElement.scrollIntoView({ behavior: 'smooth' });
+              }}
+            />
+          </div>
 
           {/* New Registration & Payment Section */}
           <TransportRegistration 
@@ -369,8 +426,6 @@ const TransportDashboard = () => {
           )}
         </AnimatePresence>
 
-        {/* Bus Route Cards Section */}
-       
       </div>
     </div>
   );

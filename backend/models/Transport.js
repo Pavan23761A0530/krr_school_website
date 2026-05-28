@@ -26,6 +26,9 @@ const RouteSchema = new mongoose.Schema({
     drop: { type: String, required: true }
   },
   fee: { type: Number, required: true },
+  estimatedTime: { type: String }, // e.g. "45 mins"
+  activeStatus: { type: Boolean, default: true },
+  color: { type: String, default: '#3b82f6' }, // For map visual differentiation
   bus: { type: mongoose.Schema.Types.ObjectId, ref: 'Bus' }
 }, { timestamps: true });
 

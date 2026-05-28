@@ -8,98 +8,84 @@ dotenv.config({ path: path.join(__dirname, '.env') });
 const seedData = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
-    console.log('Connected to MongoDB for expanded local transport seeding...');
+    console.log('Connected to MongoDB for massive 17+ route seeding...');
 
     await Bus.deleteMany({});
     await Route.deleteMany({});
     await PickupPoint.deleteMany({});
 
-    const schoolLocation = { lat: 16.816, lng: 81.233 };
+    const schoolLocation = { lat: 16.816, lng: 81.233 }; // Tadikalapudi
     
-    // 1. Create 6 Local Buses
-    const buses = await Bus.insertMany([
-      { busNumber: 'AP-37-KRR-01', driverName: 'Srinivasa Rao', driverContact: '+91 9440123456', totalSeats: 50, availableSeats: 45, currentLocation: schoolLocation },
-      { busNumber: 'AP-37-KRR-02', driverName: 'Venkatesh Reddy', driverContact: '+91 9440234567', totalSeats: 40, availableSeats: 12, currentLocation: { lat: 16.837, lng: 81.218 } },
-      { busNumber: 'AP-37-KRR-03', driverName: 'Ravi Teja', driverContact: '+91 9440345678', totalSeats: 50, availableSeats: 28, currentLocation: { lat: 17.118, lng: 81.295 } },
-      { busNumber: 'AP-37-KRR-04', driverName: 'Koteswara Rao', driverContact: '+91 9440456789', totalSeats: 45, availableSeats: 35, currentLocation: { lat: 16.780, lng: 81.330 } },
-      { busNumber: 'AP-37-KRR-05', driverName: 'Prakash Raj', driverContact: '+91 9440567890', totalSeats: 50, availableSeats: 40, currentLocation: { lat: 16.850, lng: 81.400 } },
-      { busNumber: 'AP-37-KRR-06', driverName: 'Satish Kumar', driverContact: '+91 9440678901', totalSeats: 40, availableSeats: 15, currentLocation: { lat: 16.700, lng: 81.150 } }
-    ]);
+    // Helper to generate random coordinates near school
+    const getRandomOffset = (max) => (Math.random() - 0.5) * max;
 
-    // 2. Create 6 Local Routes
-    const routes = await Route.insertMany([
-      {
-        routeName: 'Kamavarapukota Route',
-        routeNumber: 'R-01',
-        villagesCovered: ['Tadikalapudi', 'Kamavarapukota'],
-        timing: { pickup: '07:45 AM', drop: '04:15 PM' },
-        fee: 12000,
-        bus: buses[0]._id,
-        path: [{ lat: 16.837, lng: 81.218 }, { lat: 16.816, lng: 81.233 }]
-      },
-      {
-        routeName: 'Chintalapudi Route',
-        routeNumber: 'R-02',
-        villagesCovered: ['Chintalapudi', 'Lingapalem'],
+    const routeConfigs = [
+      { name: 'Eluru Bypass', bus: 'BUS-104', fee: 9000, time: '50 mins', color: '#f87171' },
+      { name: 'Vijayawada City', bus: 'BUS-105', fee: 12000, time: '90 mins', color: '#60a5fa' },
+      { name: 'Nuzvid Town', bus: 'BUS-106', fee: 8000, time: '60 mins', color: '#34d399' },
+      { name: 'Denduluru Junction', bus: 'BUS-107', fee: 7000, time: '40 mins', color: '#fbbf24' },
+      { name: 'Kaikaluru Market', bus: 'BUS-108', fee: 11000, time: '75 mins', color: '#a78bfa' },
+      { name: 'Gudivada Stand', bus: 'BUS-109', fee: 10000, time: '70 mins', color: '#f472b6' },
+      { name: 'Tadikalapudi Local', bus: 'BUS-110', fee: 5000, time: '15 mins', color: '#fb7185' },
+      { name: 'Kamavarapukota Town', bus: 'BUS-111', fee: 6000, time: '25 mins', color: '#2dd4bf' },
+      { name: 'Jangareddygudem Express', bus: 'BUS-112', fee: 9500, time: '55 mins', color: '#fb923c' },
+      { name: 'Chintalapudi Rural', bus: 'BUS-113', fee: 10500, time: '65 mins', color: '#a3e635' },
+      { name: 'Lingapalem Cross', bus: 'BUS-114', fee: 8500, time: '45 mins', color: '#e879f9' },
+      { name: 'Dharmajigudem Route', bus: 'BUS-115', fee: 7500, time: '35 mins', color: '#38bdf8' },
+      { name: 'T.Narasapuram Center', bus: 'BUS-116', fee: 9000, time: '50 mins', color: '#818cf8' },
+      { name: 'Bhimadole Junction', bus: 'BUS-117', fee: 11500, time: '80 mins', color: '#c084fc' },
+      { name: 'Pedavegi Heritage', bus: 'BUS-118', fee: 6500, time: '30 mins', color: '#fbbf24' },
+      { name: 'Akiveedu Bypass', bus: 'BUS-119', fee: 12500, time: '95 mins', color: '#4ade80' },
+      { name: 'Hanuman Junction', bus: 'BUS-120', fee: 11000, time: '75 mins', color: '#f43f5e' }
+    ];
+
+    for (let i = 0; i < routeConfigs.length; i++) {
+      const config = routeConfigs[i];
+      
+      // 1. Create Bus
+      const bus = await Bus.create({
+        busNumber: config.bus,
+        driverName: `Driver ${i + 1}`,
+        driverContact: `+91 9440${100000 + i}`,
+        totalSeats: 40,
+        availableSeats: Math.floor(Math.random() * 30) + 5,
+        currentLocation: { 
+          lat: schoolLocation.lat + getRandomOffset(0.2), 
+          lng: schoolLocation.lng + getRandomOffset(0.2) 
+        }
+      });
+
+      // 2. Create Route
+      const route = await Route.create({
+        routeName: `${config.name} Route`,
+        routeNumber: `R-${config.bus.split('-')[1]}-0${i + 1}`,
+        villagesCovered: [config.name, 'Nearby Village'],
         timing: { pickup: '07:00 AM', drop: '05:00 PM' },
-        fee: 18000,
-        bus: buses[1]._id,
-        path: [{ lat: 17.065, lng: 81.047 }, { lat: 16.816, lng: 81.233 }]
-      },
-      {
-        routeName: 'Jangareddygudem Route',
-        routeNumber: 'R-03',
-        villagesCovered: ['Jangareddygudem', 'Lakkavaram'],
-        timing: { pickup: '07:15 AM', drop: '04:45 PM' },
-        fee: 15000,
-        bus: buses[2]._id,
-        path: [{ lat: 17.118, lng: 81.295 }, { lat: 16.816, lng: 81.233 }]
-      },
-      {
-        routeName: 'Dharmajigudem Route',
-        routeNumber: 'R-04',
-        villagesCovered: ['Dharmajigudem', 'Nagireddygudem'],
-        timing: { pickup: '07:30 AM', drop: '04:30 PM' },
-        fee: 14000,
-        bus: buses[3]._id,
-        path: [{ lat: 16.870, lng: 81.150 }, { lat: 16.816, lng: 81.233 }]
-      },
-      {
-        routeName: 'T.Narasapuram Route',
-        routeNumber: 'R-05',
-        villagesCovered: ['T.Narasapuram', 'Borrampalem'],
-        timing: { pickup: '07:20 AM', drop: '04:40 PM' },
-        fee: 16000,
-        bus: buses[4]._id,
-        path: [{ lat: 17.050, lng: 81.250 }, { lat: 16.816, lng: 81.233 }]
-      },
-      {
-        routeName: 'Bhimadole Route',
-        routeNumber: 'R-06',
-        villagesCovered: ['Bhimadole', 'Gundugolanu'],
-        timing: { pickup: '06:45 AM', drop: '05:15 PM' },
-        fee: 20000,
-        bus: buses[5]._id,
-        path: [{ lat: 16.820, lng: 81.260 }, { lat: 16.816, lng: 81.233 }]
-      }
-    ]);
+        fee: config.fee,
+        estimatedTime: config.time,
+        color: config.color,
+        bus: bus._id,
+        path: [
+          { 
+            lat: schoolLocation.lat + getRandomOffset(0.3), 
+            lng: schoolLocation.lng + getRandomOffset(0.3) 
+          },
+          schoolLocation
+        ]
+      });
 
-    // 3. Create Local Pickup Points
-    await PickupPoint.insertMany([
-      { name: 'Kamavarapukota Center', location: { lat: 16.837, lng: 81.218 }, route: routes[0]._id },
-      { name: 'Tadikalapudi Junction', location: { lat: 16.818, lng: 81.230 }, route: routes[0]._id },
-      { name: 'Chintalapudi Stand', location: { lat: 17.065, lng: 81.047 }, route: routes[1]._id },
-      { name: 'Lingapalem Cross', location: { lat: 16.924, lng: 81.033 }, route: routes[1]._id },
-      { name: 'JRG Market', location: { lat: 17.118, lng: 81.295 }, route: routes[2]._id },
-      { name: 'Dharmajigudem Main', location: { lat: 16.870, lng: 81.150 }, route: routes[3]._id },
-      { name: 'T.Narasapuram Center', location: { lat: 17.050, lng: 81.250 }, route: routes[4]._id },
-      { name: 'Bhimadole Junction', location: { lat: 16.820, lng: 81.260 }, route: routes[5]._id }
-    ]);
+      // 3. Create Pickup Point (the "Checkpoint")
+      await PickupPoint.create({
+        name: config.name,
+        location: route.path[0],
+        route: route._id
+      });
+    }
 
-    console.log('6 Local routes seeded successfully!');
+    console.log('17+ Extended routes and checkpoints seeded successfully!');
     process.exit(0);
   } catch (error) {
-    console.error('Error seeding 6 routes:', error);
+    console.error('Error seeding 17+ routes:', error);
     process.exit(1);
   }
 };

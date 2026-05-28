@@ -16,6 +16,7 @@ import {
   Rocket,
   CheckCircle2
 } from 'lucide-react'
+import GallerySection from './GallerySection'
 
 const AboutUs = () => {
   return (
@@ -237,49 +238,8 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* Faculty Team Section */}
-      <section className="py-12 lg:py-16 bg-navy-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-navy-900 mb-4">Our Faculty</h2>
-            <div className="w-20 h-1.5 bg-gold-500 mx-auto rounded-full"></div>
-            <p className="mt-6 text-navy-600 max-w-2xl mx-auto">
-              Meet our team of passionate and experienced educators dedicated to nurturing the next generation of leaders.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { name: "Mrs. Sarah John", subject: "English & Literature", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop" },
-              { name: "Mr. Rajesh Kumar", subject: "Mathematics & Physics", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop" },
-              { name: "Ms. Lakshmi Devi", subject: "Social Sciences", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400&auto=format&fit=crop" },
-              { name: "Mr. David Wilson", subject: "Science & Technology", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop" },
-              { name: "Mrs. Anjali Rao", subject: "Arts & Culture", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop" },
-              { name: "Mr. Srinivas P", subject: "Physical Education", image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop" },
-              { name: "Ms. Priyanka M", subject: "Computer Science", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop" },
-              { name: "Mr. Michael S", subject: "Music & Performing Arts", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop" }
-            ].map((teacher, index) => (
-              <div key={index} className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-navy-100">
-                <div className="relative h-64 overflow-hidden">
-                  <img 
-                    src={teacher.image} 
-                    alt={teacher.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-navy-900/20 group-hover:bg-navy-900/0 transition-colors"></div>
-                </div>
-                <div className="p-6 text-center">
-                  <h4 className="font-heading font-bold text-navy-900 text-lg mb-1">{teacher.name}</h4>
-                  <p className="text-gold-600 text-sm font-medium mb-3">{teacher.subject}</p>
-                  <p className="text-navy-500 text-xs leading-relaxed">
-                    Passionate educator with 10+ years of experience in modern teaching methods.
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Gallery Section */}
+      <GallerySection />
 
       {/* Vision & Mission Section */}
       <section className="py-12 lg:py-16 bg-white relative overflow-hidden">

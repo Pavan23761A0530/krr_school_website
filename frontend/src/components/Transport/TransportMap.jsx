@@ -101,9 +101,10 @@ const TransportMap = ({
           <React.Fragment key={route._id}>
             <Polyline
               positions={route.path.map(p => [p.lat, p.lng])}
-              color={selectedRouteId === route._id ? '#3b82f6' : '#94a3b8'}
-              weight={selectedRouteId === route._id ? 5 : 3}
-              opacity={selectedRouteId === route._id ? 1 : 0.6}
+              color={selectedRouteId === route._id ? route.color || '#3b82f6' : route.color || '#94a3b8'}
+              weight={selectedRouteId === route._id ? 6 : 4}
+              opacity={selectedRouteId === route._id ? 1 : 0.7}
+              dashArray={selectedRouteId === route._id ? null : "5, 10"}
             />
           </React.Fragment>
         ))}
@@ -118,7 +119,7 @@ const TransportMap = ({
               {point.name}
             </Tooltip>
             <Popup>
-              <div className="font-bold text-blue-600">{point.name}</div>
+              <div className="font-bold" style={{ color: point.route?.color || '#3b82f6' }}>{point.name}</div>
               <p className="text-xs">Route: {point.route?.routeName}</p>
               <p className="text-[10px] text-gray-500">Official KRR Pickup Point</p>
             </Popup>

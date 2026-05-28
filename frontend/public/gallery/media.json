@@ -1,0 +1,17 @@
+{
+  "images": [
+    { "src": "/gallery/images/campus view.jpg", "title": "Campus View", "category": "Campus" },
+    { "src": "/gallery/images/class room.png", "title": "Modern Classrooms", "category": "Facilities" },
+    { "src": "/gallery/images/cultural events.jpg", "title": "Cultural Events", "category": "Activities" },
+    { "src": "/gallery/images/cultural.jpg", "title": "School Culturals", "category": "Activities" },
+    { "src": "/gallery/images/library.png", "title": "School Library", "category": "Facilities" },
+    { "src": "/gallery/images/science labs.png", "title": "Science Laboratories", "category": "Facilities" },
+    { "src": "/gallery/images/sports.png", "title": "Sports Activities", "category": "Sports" }
+  ],
+  "videos": [
+    { "src": "/gallery/videos/culturals.mp4", "title": "Cultural Program Highlights", "thumbnail": "/gallery/images/cultural.jpg" },
+    { "src": "/gallery/videos/video1.mp4", "title": "Campus Tour", "thumbnail": "/gallery/images/campus view.jpg" },
+    { "src": "/gallery/videos/video2.mp4", "title": "Student Activities", "thumbnail": "/gallery/images/sports.png" },
+    { "src": "/gallery/videos/students response.mp4", "title": "Student Testimonials", "thumbnail": "/gallery/images/class room.png" }
+  ]
+}

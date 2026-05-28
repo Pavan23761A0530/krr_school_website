@@ -173,7 +173,7 @@ const TransportRegistration = ({ nearestInfo, searchedLocation, onRegisterSucces
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
+    <div id="transport-registration" className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
       {/* Registration Form */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
