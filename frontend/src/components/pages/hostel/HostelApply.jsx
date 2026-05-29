@@ -321,10 +321,10 @@ const HostelApplyPage = () => {
                 Next Steps
               </h3>
               <ul className="space-y-4 text-navy-600 text-sm">
-                <li className="flex items-start gap-3">
+                {/* <li className="flex items-start gap-3">
                   <div className="w-6 h-6 bg-navy-900 text-white rounded-full flex items-center justify-center text-xs shrink-0 mt-0.5">1</div>
                   Download and save your admission receipt for records.
-                </li>
+                </li> */}
                 <li className="flex items-start gap-3">
                   <div className="w-6 h-6 bg-navy-900 text-white rounded-full flex items-center justify-center text-xs shrink-0 mt-0.5">2</div>
                   Report to the hostel office on the reopening date.
@@ -335,13 +335,13 @@ const HostelApplyPage = () => {
                 </li>
               </ul>
               
-              <button 
+              {/* <button 
                 onClick={() => downloadReceipt()}
                 disabled={isDownloading}
                 className="w-full mt-8 px-8 py-4 bg-navy-900 text-white font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-navy-800 transition-all disabled:opacity-50"
               >
                 {isDownloading ? 'Downloading PDF...' : <><Upload className="w-5 h-5 rotate-180" /> Download Admission Receipt</>}
-              </button>
+              </button> */}
             </div>
           </div>
 

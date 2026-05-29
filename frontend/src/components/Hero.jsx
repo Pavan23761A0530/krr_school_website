@@ -19,7 +19,7 @@ const heroImages = [
     alt: 'School campus and infrastructure'
   },
   {
-    url: '/hero3.png',
+    url: '/sports.png',
     alt: 'Extracurricular activities at KRR'
   }
 ]

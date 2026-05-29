@@ -402,18 +402,7 @@ const TransportDashboard = () => {
 
                 {/* Footer Buttons (Not captured by ref) */}
                 <div className="p-10 pt-0 bg-white space-y-3">
-                  <button
-                    disabled={isDownloading}
-                    onClick={handleDownloadReceipt}
-                    className="w-full bg-slate-900 text-white py-5 rounded-[1.5rem] font-bold shadow-xl hover:bg-slate-800 transition-all flex items-center justify-center gap-2"
-                  >
-                    {isDownloading ? (
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                    ) : (
-                      <Download className="w-5 h-5" />
-                    )}
-                    {isDownloading ? 'Generating PDF...' : 'Download Receipt (PDF)'}
-                  </button>
+                  
                   <button
                     onClick={() => setShowReceipt(false)}
                     className="w-full bg-white text-slate-400 py-3 rounded-xl text-sm font-bold hover:text-slate-600 transition-all"
